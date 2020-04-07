@@ -11,7 +11,9 @@ namespace Puzzles
             // int[] RandomArrayTest = RandomArray();
 
             // #2: Coin Flip
-            string TossCoinTest = TossCoin();
+            // string TossCoinTest = TossCoin();
+            double TossMultipleCoinsTest = TossMultipleCoins(5);
+            Console.WriteLine("Chance of flipping Head: " + TossMultipleCoinsTest);
         }
 
         public static int[] RandomArray()
@@ -33,11 +35,43 @@ namespace Puzzles
             Console.WriteLine($"min:{min}, max:{max}, sum:{sum}");
             return answer;
         }
-
         public static string TossCoin()
         {
-            
-            return "";
+            Console.WriteLine("Tossing a Coin!");
+            Random rand = new Random();
+            if (rand.Next(0,2) == 0) 
+            {
+                Console.WriteLine("Heads");
+                return "Heads";
+            }
+            else
+            {
+                Console.WriteLine("Tails");
+                return "Tails";
+            }
+        }
+        public static double TossMultipleCoins(int num)
+        {
+            if (num <= 0) return 0;
+
+            int headCount = 0;
+            int tailCount = 0;
+            for (int i = 0; i < num; i++)
+            {
+                Console.WriteLine("Tossing a Coin!");
+                Random rand = new Random();
+                if (rand.Next(0,2) == 0) 
+                {
+                    Console.WriteLine("Heads");
+                    headCount++;
+                }
+                else
+                {
+                    Console.WriteLine("Tails");
+                    tailCount++;
+                }
+            }
+            return (double) headCount / (headCount + tailCount);
         }
     }
 }
