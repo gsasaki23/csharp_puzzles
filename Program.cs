@@ -7,13 +7,18 @@ namespace Puzzles
     {
         static void Main(string[] args)
         {
-            // #1: Random Array
-            // int[] RandomArrayTest = RandomArray();
+            Console.WriteLine("#1: Random Array");
+            int[] RandomArrayTest = RandomArray();
 
-            // #2: Coin Flip
-            // string TossCoinTest = TossCoin();
+            Console.WriteLine("\n#2: Coin Flip");
+            string TossCoinTest = TossCoin();
             double TossMultipleCoinsTest = TossMultipleCoins(5);
             Console.WriteLine("Chance of flipping Head: " + TossMultipleCoinsTest);
+
+            Console.WriteLine("\n#3: Names");
+            string[] NamesTest = Names();
+            Console.WriteLine("\nAnswer:");
+            foreach (string name in NamesTest) Console.WriteLine(name);
         }
 
         public static int[] RandomArray()
@@ -72,6 +77,42 @@ namespace Puzzles
                 }
             }
             return (double) headCount / (headCount + tailCount);
+        }
+    
+        public static string[] Names()
+        {
+            // Create a list with the values: Todd, Tiffany, Charlie, Geneva, Sydney
+            string [] start = {"Todd", "Tiffany", "Charlie", "Geneva", "Sydney"};
+            
+            // Shuffle the list and print the values in the new order
+            // ***Approach: swap 2 random non-matching indexes 5 times.
+            string temp;
+            for (int i = 0; i < 5; i++)
+            {
+                Random rand = new Random();
+                int a = rand.Next(0,start.Length);
+                int b = rand.Next(0,start.Length);
+                
+                // Runs forever until 2 random non-matching indexes are found
+                bool match = true;
+                while (match)
+                {
+                    if (a != b) match = false;
+                    a = rand.Next(0,start.Length);
+                    b = rand.Next(0,start.Length);
+                }
+                
+                // Swap a and b
+                temp = start[a];
+                start[a] = start[b];
+                start[b] = temp;
+            }
+            Console.WriteLine("After the shuffle and before the filter, the names are: ");
+            foreach (string name in start) Console.WriteLine(name);
+
+            // Return a list that only includes names longer than 5 characters
+            string[] answer = Array.FindAll(start, x => x.Length > 5);
+            return answer;
         }
     }
 }
